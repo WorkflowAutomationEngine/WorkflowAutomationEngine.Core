@@ -49,13 +49,22 @@ jobs:
           VERSION=$(dotnet run --project WorkflowAutomationEngine.Core.CLI --configuration Release)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
-      - name: Pack
+      - name: Pack Core
         run: |
           dotnet pack WorkflowAutomationEngine.Core/WorkflowAutomationEngine.Core.csproj \
             --configuration Release \
             --no-build \
             -p:Version=${{ env.VERSION }} \
             -o ./artifacts
+
+      - name: Pack CLI Tool
+        run: |
+          dotnet pack WorkflowAutomationEngine.Core.CLI/WorkflowAutomationEngine.Core.CLI.csproj \
+            --configuration Release \
+            --no-build \
+            -p:Version=${{ env.VERSION }} \
+            -o ./artifacts
+
 
       - name: Push Package
         run: |
