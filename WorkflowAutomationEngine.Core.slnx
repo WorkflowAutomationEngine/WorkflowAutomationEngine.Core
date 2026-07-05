@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".github/workflows/build.yml" />
+    <File Path="NuGet/build.props" />
+    <File Path="Read.txt" />
+  </Folder>
+  <Project Path="WorkflowAutomationEngine.Core.CLI/WorkflowAutomationEngine.Core.CLI.csproj" Id="8df1df77-03e1-4927-9f78-ad48aa7d6ed9" />
+  <Project Path="WorkflowAutomationEngine.Core/WorkflowAutomationEngine.Core.csproj" Id="2e262047-e0da-4df4-8604-b33cd6d7da42" />
+</Solution>

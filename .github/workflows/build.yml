@@ -1,0 +1,61 @@
+name: Build and Publish
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  DOTNET_VERSION: '10.0.x'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Add GitHub Packages Source
+        run: |
+          dotnet nuget add source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" \
+            --name github \
+            --username ${{ github.actor }} \
+            --password ${{ secrets.GITHUB_TOKEN }} \
+            --store-password-in-clear-text
+
+      - name: Restore
+        run: dotnet restore WorkflowAutomationEngine.Core.slnx
+
+      - name: Build
+        run: dotnet build WorkflowAutomationEngine.Core.slnx --configuration Release --no-restore
+
+      - name: Calculate Package Version
+        id: version
+        run: |
+          VERSION=$(dotnet run --project WorkflowAutomationEngine.Core.CLI --configuration Release)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Pack
+        run: |
+          dotnet pack WorkflowAutomationEngine.Core/WorkflowAutomationEngine.Core.csproj \
+            --configuration Release \
+            --no-build \
+            -p:Version=${{ env.VERSION }} \
+            -o ./artifacts
+
+      - name: Push Package
+        run: |
+          dotnet nuget push "./artifacts/*.nupkg" \
+            --source github \
+            --skip-duplicate
