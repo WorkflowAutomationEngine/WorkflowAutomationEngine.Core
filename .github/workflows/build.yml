@@ -66,8 +66,15 @@ jobs:
             -o ./artifacts
 
 
-      - name: Push Package
+      - name: Push Core Package
         run: |
-          dotnet nuget push "./artifacts/*.nupkg" \
+          dotnet nuget push "./artifacts/WorkflowAutomationEngine.Core.${{ env.VERSION }}.nupkg" \
             --source github \
             --skip-duplicate
+
+      - name: Push CLI Tool
+        run: |
+          dotnet nuget push "./artifacts/WorkflowAutomationEngine.Core.CLI.${{ env.VERSION }}.nupkg" \
+            --source github \
+            --skip-duplicate \
+            --verbosity detailed
