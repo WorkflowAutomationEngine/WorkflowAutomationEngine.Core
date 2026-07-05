@@ -77,4 +77,4 @@ jobs:
           dotnet nuget push "./artifacts/WorkflowAutomationEngine.Core.CLI.${{ env.VERSION }}.nupkg" \
             --source github \
             --skip-duplicate \
-            --verbosity detailed
+            --timeout 900
