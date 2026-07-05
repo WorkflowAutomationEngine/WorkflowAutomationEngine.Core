@@ -5,6 +5,20 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	
+	<PackAsTool>true</PackAsTool>
+	<ToolCommandName>workflowautomationengine</ToolCommandName>
+	<PackageId>WorkflowAutomationEngine.Core.CLI</PackageId>
+	<Authors>WorkflowAutomationEngine</Authors>
+	<Company>WorkflowAutomationEngine</Company>
+	<Description>CLI for WorkflowAutomationEngine.</Description>
+	<PackageTags>workflow;automation;cli</PackageTags>
+	<RepositoryUrl>https://github.com/WorkflowAutomationEngine/WorkflowAutomationEngine.Core</RepositoryUrl>
+	<RepositoryType>git</RepositoryType>
+  
+	<PackageOutputPath>./nupkg</PackageOutputPath>
+	<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+	
   </PropertyGroup>
 
   <ItemGroup>
