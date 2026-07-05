@@ -42,6 +42,9 @@ jobs:
 
       - name: Calculate Package Version
         id: version
+        env:
+            GITHUB_ACTOR: ${{ github.actor }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           VERSION=$(dotnet run --project WorkflowAutomationEngine.Core.CLI --configuration Release)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
